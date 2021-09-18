@@ -1,0 +1,93 @@
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/dimen_8dp"
+    android:layout_marginTop="@dimen/dimen_8dp"
+    android:layout_marginStart="@dimen/dimen_8dp"
+    android:layout_marginEnd="@dimen/dimen_8dp">
+
+    <LinearLayout
+        android:id="@+id/contentCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/dimen_16dp"
+        android:paddingStart="@dimen/dimen_16dp"
+        android:paddingEnd="@dimen/dimen_16dp"
+        android:paddingTop="@dimen/dimen_16dp">
+
+        <TextView
+            android:id="@+id/name"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/primaryColor"
+            tool:text="Jhon doe" />
+
+        <LinearLayout
+            android:id="@+id/contentPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imagePhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dimen_5dp"
+                android:src="@drawable/ic_local_phone_black_24dp"
+                app:tint="@color/primaryColor"
+                android:contentDescription="@string/description_image_phone" />
+
+            <TextView
+                android:id="@+id/phone"
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tool:text="1-770-736-8031 x56442" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/contentEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dimen_5dp"
+                android:src="@drawable/ic_email_black_24dp"
+                app:tint="@color/primaryColor"
+                android:contentDescription="@string/description_image_email"  />
+
+            <TextView
+                android:id="@+id/email"
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tool:text="jhondoe@email.com" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/contentBtnViewPost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            tool:ignore="RtlHardcoded">
+
+            <Button
+                android:id="@+id/btn_view_post"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="@string/title_btn_view_posts"
+                android:textColor="@color/primaryColor" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
