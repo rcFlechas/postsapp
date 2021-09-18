@@ -3,6 +3,7 @@ package com.example.postsapp.models.data.local.dao
 import androidx.room.*
 import com.example.postsapp.models.data.local.entities.UserEntity
 import io.reactivex.Completable
+import io.reactivex.Flowable
 import io.reactivex.Maybe
 
 @Dao
@@ -18,7 +19,7 @@ interface UserDAO {
     fun update(user: UserEntity): Completable
 
     @Query("SELECT * FROM user")
-    fun getAll(): Maybe<List<UserEntity>>
+    fun getAll(): Flowable<List<UserEntity>>
 
     @Query("SELECT * FROM user WHERE user_id = :id")
     fun getById(id: Long): Maybe<UserEntity>

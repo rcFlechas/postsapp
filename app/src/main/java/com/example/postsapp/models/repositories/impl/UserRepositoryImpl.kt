@@ -22,7 +22,7 @@ class UserRepositoryImpl(
 
     override fun update(user: UserEntity): Completable = userLocalDataSource.update(user)
 
-    override fun getAll(): Maybe<List<UserEntity>> = userLocalDataSource.getAll()
+    override fun getAll(): Flowable<List<UserEntity>> = userLocalDataSource.getAll()
 
     override fun getById(id: Long): Maybe<UserEntity> = userLocalDataSource.getById(id)
 

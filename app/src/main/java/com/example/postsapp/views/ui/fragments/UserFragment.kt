@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.postsapp.R
@@ -39,6 +40,8 @@ class UserFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initUI()
+        setupSearch()
+        setupSwipe()
         setupHandler()
     }
 
@@ -53,6 +56,13 @@ class UserFragment : Fragment() {
 
             //val bundle = bundleOf("movieWithCartBind" to it)
             //findNavController().navigate(R.id.action_movieFragment_to_movieDetailFragmentDialog, bundle)
+        }, listEmptyClosure = { isEmpty ->
+
+            if (isEmpty) {
+                dataEmpty(getString(R.string.message_list_empty))
+            } else {
+                dataNoEmpty()
+            }
         })
 
         userAdapter.setHasStableIds(true)
@@ -60,6 +70,30 @@ class UserFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
             setHasFixedSize(true)
             adapter = userAdapter
+        }
+    }
+
+    private fun setupSearch() {
+
+        binding?.searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextChange(newText: String): Boolean {
+                userAdapter.filter.filter(newText)
+                return true
+            }
+
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
+        })
+    }
+
+    private fun setupSwipe() {
+
+        binding?.swipeRefreshLayout?.let{
+            it.setOnRefreshListener {
+                it.isRefreshing = false
+                userViewModel.getAll(reload = true)
+            }
         }
     }
 
@@ -109,6 +143,11 @@ class UserFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        userViewModel.closeSubscriptions()
     }
 
     companion object {

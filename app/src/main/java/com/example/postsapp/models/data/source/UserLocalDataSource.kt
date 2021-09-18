@@ -2,6 +2,7 @@ package com.example.postsapp.models.data.source
 
 import com.example.postsapp.models.data.local.entities.UserEntity
 import io.reactivex.Completable
+import io.reactivex.Flowable
 import io.reactivex.Maybe
 
 interface UserLocalDataSource {
@@ -12,7 +13,7 @@ interface UserLocalDataSource {
 
     fun update(user: UserEntity): Completable
 
-    fun getAll(): Maybe<List<UserEntity>>
+    fun getAll(): Flowable<List<UserEntity>>
 
     fun getById(id: Long): Maybe<UserEntity>
 

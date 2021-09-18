@@ -46,7 +46,6 @@ object RetrofitFactory {
         }else{
 
             OkHttpClient.Builder().apply {
-                addInterceptor(loggingInterceptor)
                 //addInterceptor(authInterceptor)
                 connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
                 writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)

@@ -7,9 +7,15 @@ import android.view.View
 import android.widget.ImageView
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.bumptech.glide.request.RequestOptions
 import com.example.postsapp.utilities.Event
+import com.example.postsapp.utilities.UIState
+import io.reactivex.Completable
+import io.reactivex.disposables.Disposable
+import io.reactivex.rxkotlin.subscribeBy
+import io.reactivex.schedulers.Schedulers
 
 inline fun <T> LiveData<Event<T>>.observeEvent(owner: LifecycleOwner, crossinline onEventUnhandledContent: (T) -> Unit) {
     observe(owner, { it?.getContentIfNotHandled()?.let(onEventUnhandledContent) })
@@ -34,12 +40,9 @@ internal fun Context.isConnect(): Boolean {
     }
 }
 
-internal fun ImageView.setImageByUrl(url: String, options: RequestOptions = RequestOptions()) {
-
-    /*GlideApp.with(this.context)
-        .load(url)
-        .placeholder(R.drawable.ic_launcher_background)
-        .error(R.drawable.ic_launcher_background)
-        .apply(options)
-        .into(this)*/
-}
+fun <T> Completable.subscribe(errorMutableLiveData: MutableLiveData<Event<UIState<T>>>): Disposable = this.subscribeOn(Schedulers.io())
+    .subscribeBy(
+        onError = {
+            errorMutableLiveData.postValue(Event(UIState.OnError(it.message ?: "Error")))
+        }
+    )

@@ -16,7 +16,7 @@ interface UserRepository {
 
     fun update(user: UserEntity): Completable
 
-    fun getAll(): Maybe<List<UserEntity>>
+    fun getAll(): Flowable<List<UserEntity>>
 
     fun getById(id: Long): Maybe<UserEntity>
 

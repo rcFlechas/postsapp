@@ -18,7 +18,7 @@ class UserDataSource(private val userApi: UserApi, private val userDAO: UserDAO)
 
     override fun refresh(): Flowable<List<UserResponse>> = userApi.getUsers()
 
-    override fun getAll(): Maybe<List<UserEntity>> = userDAO.getAll()
+    override fun getAll(): Flowable<List<UserEntity>> = userDAO.getAll()
 
     override fun getById(id: Long): Maybe<UserEntity> = userDAO.getById(id)
 

@@ -1,8 +1,8 @@
 package com.example.postsapp.application
 
 import android.app.Application
-import androidx.viewbinding.BuildConfig
 import com.example.postsapp.application.di.*
+import com.example.postsapp.BuildConfig
 import com.facebook.stetho.Stetho
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -17,7 +17,6 @@ class BaseApplication : Application() {
         if(BuildConfig.DEBUG) {
             Stetho.initializeWithDefaults(this)
         }
-
         setupKoin()
     }
 
@@ -31,7 +30,6 @@ class BaseApplication : Application() {
                     roomModule,
                     dataSourceModule,
                     repositoryModule,
-                    moshiModule,
                     viewModelModule
                 )
             )

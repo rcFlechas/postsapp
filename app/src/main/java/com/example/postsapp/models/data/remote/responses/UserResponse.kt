@@ -3,6 +3,8 @@ package com.example.postsapp.models.data.remote.responses
 import android.os.Parcelable
 import androidx.annotation.Keep
 import com.example.postsapp.mappers.BindMapper
+import com.example.postsapp.mappers.EntityMapper
+import com.example.postsapp.models.data.local.entities.UserEntity
 import com.example.postsapp.views.binds.UserBind
 import com.squareup.moshi.Json
 import kotlinx.parcelize.Parcelize
@@ -42,7 +44,7 @@ data class UserResponse(
     @field:Json(name = "company")
     val company: Company
 
-) : Parcelable, BindMapper<UserResponse, UserBind> {
+) : Parcelable, BindMapper<UserResponse, UserBind>, EntityMapper<UserResponse, UserEntity> {
 
     override fun toBind() = UserBind(
         id = id,
@@ -50,8 +52,15 @@ data class UserResponse(
         email = email,
         phone = phone
     )
+    override fun List<UserResponse>.toListBind() = map(UserResponse::toBind)
 
-    override fun List<UserResponse>.toListBind() = map( UserResponse::toBind)
+    override fun toEntity() = UserEntity(
+        id = id,
+        name = name,
+        email = email,
+        phone = phone
+    )
+    override fun List<UserResponse>.toListEntity() = map(UserResponse::toEntity)
 }
 
 @Parcelize
