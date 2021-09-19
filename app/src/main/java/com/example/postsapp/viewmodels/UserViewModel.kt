@@ -1,8 +1,11 @@
 package com.example.postsapp.viewmodels
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import com.example.postsapp.core.Constants
+import com.example.postsapp.core.isConnect
 import com.example.postsapp.core.subscribe
 import com.example.postsapp.models.data.local.entities.UserEntity
 import com.example.postsapp.models.data.remote.responses.UserResponse
@@ -14,7 +17,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 
-class UserViewModel (private val userRepository: UserRepository) : ViewModel() {
+class UserViewModel (application: Application, private val userRepository: UserRepository) : AndroidViewModel(application) {
 
     private val subscriptions = CompositeDisposable()
 
@@ -37,11 +40,13 @@ class UserViewModel (private val userRepository: UserRepository) : ViewModel() {
                 }
                 .subscribeOn(Schedulers.io())
                 .subscribeBy(
-                    onComplete = {
-                        _getAll.postValue(Event(UIState.OnLoading(false)))
-                    },
-                    onNext = {
-                        _getAll.postValue(Event(UIState.OnSuccess(it.map(UserEntity::toBind))))
+                    onNext = { users ->
+
+                        if (users.isNotEmpty()) {
+                            _getAll.postValue(Event(UIState.OnSuccess(users.map(UserEntity::toBind))))
+                        } else {
+                            refresh()
+                        }
                     },
                     onError = {
                         _getAll.postValue(Event( UIState.OnError(it.message ?: "Error" )))
@@ -52,24 +57,28 @@ class UserViewModel (private val userRepository: UserRepository) : ViewModel() {
 
     private fun refresh() {
 
-        subscriptions.add(
-            userRepository.refresh()
-                .doOnSubscribe {
-                    _getAll.postValue(Event(UIState.OnLoading(true)))
-                }
-                .subscribeOn(Schedulers.io())
-                .subscribeBy(
-                    onComplete = {
-                        _getAll.postValue(Event(UIState.OnLoading(false)))
-                    },
-                    onNext = {
-                        saveAll(it.map(UserResponse::toEntity))
-                    },
-                    onError = {
-                        _getAll.postValue(Event( UIState.OnError( it.message ?: "Error" ) ))
+        if (isConnect()) {
+            subscriptions.add(
+                userRepository.refresh()
+                    .doOnSubscribe {
+                        _getAll.postValue(Event(UIState.OnLoading(true)))
                     }
-                )
-        )
+                    .subscribeOn(Schedulers.io())
+                    .subscribeBy(
+                        onComplete = {
+                            _getAll.postValue(Event(UIState.OnLoading(false)))
+                        },
+                        onNext = {
+                            saveAll(it.map(UserResponse::toEntity))
+                        },
+                        onError = {
+                            _getAll.postValue(Event( UIState.OnError( it.message ?: "Error" ) ))
+                        }
+                    )
+            )
+        } else {
+            _getAll.postValue(Event( UIState.OnError( Constants.ERROR_NETWORK ) ))
+        }
     }
 
     private fun saveAll(users: List<UserEntity>) {
@@ -81,4 +90,5 @@ class UserViewModel (private val userRepository: UserRepository) : ViewModel() {
     fun closeSubscriptions() {
         subscriptions.dispose()
     }
+
 }

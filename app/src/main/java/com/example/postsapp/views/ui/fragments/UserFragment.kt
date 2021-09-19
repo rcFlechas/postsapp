@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.postsapp.R
+import com.example.postsapp.core.clear
 import com.example.postsapp.core.observeEvent
 import com.example.postsapp.databinding.FragmentUserBinding
 import com.example.postsapp.utilities.UIState
@@ -52,6 +53,7 @@ class UserFragment : Fragment() {
 
         userAdapter = UserAdapter ( clickClosure = {
 
+            binding?.searchView?.clear()
             val bundle = bundleOf(UserBind.TAG to it)
             findNavController().navigate(R.id.action_userFragment_to_postFragment, bundle)
         }, listEmptyClosure = { isEmpty ->
@@ -90,6 +92,7 @@ class UserFragment : Fragment() {
         binding?.swipeRefreshLayout?.let{
             it.setOnRefreshListener {
                 it.isRefreshing = false
+                binding?.searchView?.clear()
                 userViewModel.getAll(reload = true)
             }
         }
@@ -103,6 +106,7 @@ class UserFragment : Fragment() {
                     isLoading(uiState.loading)
                 }
                 is UIState.OnSuccess -> {
+                    isLoading(false)
                     val data = uiState.data
                     userAdapter.clearData()
                     if (data.isNotEmpty()) {
@@ -113,6 +117,7 @@ class UserFragment : Fragment() {
                     }
                 }
                 is UIState.OnError -> {
+                    isLoading(false)
                     dataEmpty(uiState.error)
                 }
             }

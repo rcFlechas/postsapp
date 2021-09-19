@@ -22,18 +22,17 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            app:cardCornerRadius="20dp">
+            android:layout_margin="@dimen/dimen_5dp"
+            app:cardCornerRadius="@dimen/dimen_5dp">
 
             <SearchView
                 android:id="@+id/searchView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:iconifiedByDefault="false"
-                app:queryHint="Search cocktail recipe"
-                app:defaultQueryHint="Search cocktail recipe"
-                app:queryBackground="@android:color/transparent"
-                android:background="@color/colorIcons" />
+                android:focusable="false"
+                app:queryHint="@string/title_hint_filter"
+                app:defaultQueryHint="@string/title_hint_filter"/>
 
         </androidx.cardview.widget.CardView>
 

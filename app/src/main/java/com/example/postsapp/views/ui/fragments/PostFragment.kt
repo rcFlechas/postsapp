@@ -52,7 +52,7 @@ class PostFragment : Fragment() {
         super.onResume()
 
         postViewModel.userBind?.let { user ->
-            postViewModel.getByUser(user.id, true)
+            postViewModel.getByUser(user.id)
         }
     }
 
@@ -84,9 +84,12 @@ class PostFragment : Fragment() {
                     isLoading(uiState.loading)
                 }
                 is UIState.OnSuccess -> {
+
+                    isLoading(false)
                     val data = uiState.data
                     postAdapter.clearData()
                     if (data.isNotEmpty()) {
+
                         dataNoEmpty()
                         postAdapter.setData(data)
                     } else {
@@ -94,6 +97,8 @@ class PostFragment : Fragment() {
                     }
                 }
                 is UIState.OnError -> {
+
+                    isLoading(false)
                     dataEmpty(uiState.error)
                 }
             }

@@ -2,6 +2,7 @@
     <string name="app_name">PostsApp</string>
     <string name="title_btn_view_posts">View Posts</string>
     <string name="title_post_list">Post List</string>
+    <string name="title_hint_filter">Filter</string>
 
     <string name="description_image_phone">Icon Phone</string>
     <string name="description_image_email">Icon Email</string>
