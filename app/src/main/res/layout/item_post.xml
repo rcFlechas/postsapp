@@ -3,8 +3,8 @@
     xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/dimen_16dp"
-    android:layout_marginTop="@dimen/dimen_16dp">
+    android:layout_marginBottom="@dimen/dimen_8dp"
+    android:layout_marginTop="@dimen/dimen_8dp">
 
     <LinearLayout
         android:id="@+id/contentCard"

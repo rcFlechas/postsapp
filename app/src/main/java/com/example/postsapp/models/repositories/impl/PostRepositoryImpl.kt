@@ -28,6 +28,8 @@ class PostRepositoryImpl (
 
     override fun getById(id: Long): Maybe<PostEntity> = postLocalDataSource.getById(id)
 
+    override fun getByUser(userId: Long): Flowable<List<PostEntity>> = postLocalDataSource.getByUser(userId)
+
     override fun delete(post: PostEntity): Completable = postLocalDataSource.delete(post)
 
     override fun deleteById(id: Long): Completable = postLocalDataSource.deleteById(id)

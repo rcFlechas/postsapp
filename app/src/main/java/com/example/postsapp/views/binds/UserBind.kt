@@ -9,4 +9,9 @@ data class UserBind(
     val name: String,
     val email: String,
     val phone: String
-) : Parcelable
+) : Parcelable {
+
+    companion object{
+        const val TAG = "UserBind"
+    }
+}

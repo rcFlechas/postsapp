@@ -20,6 +20,8 @@ class PostDataSource(private val postApi: PostApi, private val postDAO: PostDAO)
 
     override fun getById(id: Long): Maybe<PostEntity> = postDAO.getById(id)
 
+    override fun getByUser(userId: Long): Flowable<List<PostEntity>> = postDAO.getByUser(userId)
+
     override fun delete(post: PostEntity): Completable = postDAO.delete(post)
 
     override fun deleteById(id: Long): Completable = postDAO.deleteById(id)

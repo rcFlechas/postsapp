@@ -22,6 +22,8 @@ interface PostRepository {
 
     fun getById(id: Long): Maybe<PostEntity>
 
+    fun getByUser(userId: Long): Flowable<List<PostEntity>>
+
     fun delete(post: PostEntity): Completable
 
     fun deleteById(id: Long): Completable

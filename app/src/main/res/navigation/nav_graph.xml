@@ -15,10 +15,6 @@
         <action
             android:id="@+id/action_userFragment_to_postFragment"
             app:destination="@id/postFragment" />
-
-        <!--<action
-            android:id="@+id/action_movieFragment_to_movieDetailFragmentDialog"
-            app:destination="@id/movieDetailFragmentDialog" />-->
     </fragment>
 
     <fragment
@@ -26,15 +22,5 @@
         android:name="com.example.postsapp.views.ui.fragments.PostFragment"
         android:label="fragment_post"
         tools:layout="@layout/fragment_post" >
-
-        <!--<action
-            android:id="@+id/action_cartFragment_to_movieDetailFragmentDialog"
-            app:destination="@id/movieDetailFragmentDialog" />-->
     </fragment>
-
-    <!--<dialog
-        android:id="@+id/movieDetailFragmentDialog"
-        android:name="com.rcflechas.shoppingcartapp.views.ui.fragments.MovieDetailDialogFragment"
-        android:label="fragment_movie_detail_dialog"
-        tools:layout="@layout/fragment_movie_detail_dialog"/>-->
 </navigation>

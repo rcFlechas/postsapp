@@ -2,6 +2,7 @@ package com.example.postsapp.models.data.source
 
 import com.example.postsapp.models.data.local.entities.PostEntity
 import io.reactivex.Completable
+import io.reactivex.Flowable
 import io.reactivex.Maybe
 
 interface PostLocalDataSource {
@@ -15,6 +16,8 @@ interface PostLocalDataSource {
     fun getAll(): Maybe<List<PostEntity>>
 
     fun getById(id: Long): Maybe<PostEntity>
+
+    fun getByUser(userId: Long): Flowable<List<PostEntity>>
 
     fun delete(post: PostEntity): Completable
 

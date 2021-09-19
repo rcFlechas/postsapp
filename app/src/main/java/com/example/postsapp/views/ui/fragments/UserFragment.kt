@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.postsapp.R
@@ -14,6 +16,7 @@ import com.example.postsapp.databinding.FragmentUserBinding
 import com.example.postsapp.utilities.UIState
 import com.example.postsapp.viewmodels.UserViewModel
 import com.example.postsapp.views.adapters.UserAdapter
+import com.example.postsapp.views.binds.UserBind
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UserFragment : Fragment() {
@@ -22,11 +25,6 @@ class UserFragment : Fragment() {
 
     private val userViewModel: UserViewModel by viewModel()
     private lateinit var  userAdapter: UserAdapter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,8 +52,8 @@ class UserFragment : Fragment() {
 
         userAdapter = UserAdapter ( clickClosure = {
 
-            //val bundle = bundleOf("movieWithCartBind" to it)
-            //findNavController().navigate(R.id.action_movieFragment_to_movieDetailFragmentDialog, bundle)
+            val bundle = bundleOf(UserBind.TAG to it)
+            findNavController().navigate(R.id.action_userFragment_to_postFragment, bundle)
         }, listEmptyClosure = { isEmpty ->
 
             if (isEmpty) {

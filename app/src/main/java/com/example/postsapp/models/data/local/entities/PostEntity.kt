@@ -4,6 +4,8 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.postsapp.mappers.BindMapper
+import com.example.postsapp.views.binds.PostBind
 import kotlinx.parcelize.Parcelize
 
 @Entity(
@@ -24,4 +26,13 @@ data class PostEntity(
 
     @ColumnInfo(name = "user_id")
     val userId: Long
-) : Parcelable
+) : Parcelable, BindMapper<PostEntity, PostBind> {
+
+    override fun toBind() = PostBind(
+        id = id,
+        title = title,
+        body = body,
+        userId = userId
+    )
+    override fun List<PostEntity>.toListBind() = map(PostEntity::toBind)
+}

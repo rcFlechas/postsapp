@@ -25,10 +25,10 @@ class UserViewModel (private val userRepository: UserRepository) : ViewModel() {
         if (reload) {
             refresh()
         }
-        getAll()
+        getUsers()
     }
 
-    private fun getAll() {
+    private fun getUsers() {
 
         subscriptions.add(
             userRepository.getAll()

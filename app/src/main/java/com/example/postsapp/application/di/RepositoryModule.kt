@@ -7,6 +7,6 @@ import com.example.postsapp.models.repositories.impl.UserRepositoryImpl
 import org.koin.dsl.module
 
 val repositoryModule = module {
-    factory<PostRepository> { PostRepositoryImpl(get(), get()) }
-    factory<UserRepository> { UserRepositoryImpl(get(), get()) }
+    single<PostRepository> { PostRepositoryImpl(get(), get()) }
+    single<UserRepository> { UserRepositoryImpl(get(), get()) }
 }

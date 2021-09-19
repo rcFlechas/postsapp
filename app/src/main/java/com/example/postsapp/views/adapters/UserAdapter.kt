@@ -24,10 +24,6 @@ class UserAdapter (
         notifyDataSetChanged()
     }
 
-    fun getData(): MutableList<UserBind> {
-        return elements
-    }
-
     fun clearData() {
         this.dataItems.clear()
         this.elements.clear()
@@ -39,7 +35,7 @@ class UserAdapter (
         val binding = ItemUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val holder = ViewHolder(binding)
 
-        binding.root.onClick {
+        binding.btnViewPost.onClick {
             val position = holder.adapterPosition.takeIf { it != NO_POSITION } ?: return@onClick
             clickClosure(elements[position])
         }
